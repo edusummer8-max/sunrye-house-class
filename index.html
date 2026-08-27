@@ -4,458 +4,235 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>『순례주택』 갈등 분류 활동</title>
+<style>
+body{font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;margin:0;background:#fafafa;color:#202124}
+#app{max-width:1180px;margin:0 auto;padding:20px;line-height:1.55}
+h1{font-size:28px;margin:0 0 8px} h2{font-size:21px;margin:0 0 8px}
+.sub{color:#5f6368;margin:0 0 16px}
+.panel{background:#fff;border:1px solid #dadce0;border-radius:14px;padding:16px;margin:14px 0}
+label{display:block;font-weight:700;margin-bottom:6px}
+input,textarea{width:100%;box-sizing:border-box;border:1px solid #cdd1d5;border-radius:10px;padding:10px;font-size:15px}
+textarea{min-height:90px;resize:vertical}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+button{border:1px solid #dadce0;background:#fff;border-radius:10px;padding:9px 13px;cursor:pointer;font-size:14px}
+button.primary{background:#1a73e8;color:#fff;border-color:#1a73e8}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef3fd;color:#174ea6;font-weight:700;margin:5px 0 10px}
+.stage{display:none}.stage.active{display:block}
+.pool{border:2px dashed #c7cbd1;border-radius:14px;padding:14px;background:#fff;margin:14px 0 18px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card{border:1px solid #d8dbe0;border-radius:12px;padding:12px;background:#fff;cursor:grab;user-select:none}
+.card.selected{outline:3px solid rgba(26,115,232,.2);border-color:#1a73e8}
+.card-num{font-size:12px;font-weight:800;color:#1a73e8;margin-bottom:4px}
+.zones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.zone{background:#fff;border:1px solid #dadce0;border-radius:14px;padding:12px;min-height:250px}
+.zone.dragover{outline:3px solid rgba(26,115,232,.2)}
+.drop-area{min-height:150px;display:flex;flex-direction:column;gap:8px;padding-top:8px}
+.zone-name{font-weight:700;margin-bottom:6px}
+.common-input,.name-input{margin-top:8px}
+.result-table{width:100%;border-collapse:collapse;background:#fff}
+.result-table th,.result-table td{border:1px solid #dadce0;padding:9px;vertical-align:top;text-align:left}
+.result-table th{background:#f8f9fa}
+.hint{background:#f8f9fa;border-radius:12px;padding:12px 14px;margin:12px 0}
+.status{min-height:20px;color:#5f6368;font-size:13px;margin-top:8px}
+@media(max-width:900px){.zones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){#app{padding:10px}.cards,.zones{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-
-<div id="sunrye-custom-app">
-  <style>
-    #sunrye-custom-app {
-      font-family: Pretendard, "Noto Sans KR", Arial, sans-serif;
-      color: #202124;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 18px;
-      line-height: 1.55;
-      box-sizing: border-box;
-    }
-    #sunrye-custom-app * { box-sizing: border-box; }
-    #sunrye-custom-app h1 { font-size: 28px; margin: 0 0 6px; }
-    #sunrye-custom-app h2 { font-size: 21px; margin: 0 0 6px; }
-    #sunrye-custom-app h3 { margin: 0 0 4px; }
-    #sunrye-custom-app .sub { color: #5f6368; margin: 0 0 16px; }
-    #sunrye-custom-app .panel {
-      border: 1px solid #dadce0;
-      border-radius: 14px;
-      padding: 16px;
-      margin: 14px 0;
-      background: #fff;
-    }
-    #sunrye-custom-app .field { margin-bottom: 13px; }
-    #sunrye-custom-app label { display:block; font-weight:700; margin-bottom:6px; }
-    #sunrye-custom-app input, #sunrye-custom-app textarea {
-      width:100%;
-      border:1px solid #cdd1d5;
-      border-radius:10px;
-      padding:10px 11px;
-      font-size:15px;
-      background:white;
-    }
-    #sunrye-custom-app textarea { min-height:90px; resize:vertical; }
-    #sunrye-custom-app .cat-grid {
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-    }
-    #sunrye-custom-app .toolbar {
-      display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:12px 0;
-    }
-    #sunrye-custom-app button {
-      border:1px solid #dadce0;
-      background:white;
-      border-radius:10px;
-      padding:9px 13px;
-      cursor:pointer;
-      font-size:14px;
-    }
-    #sunrye-custom-app button:hover { background:#f8f9fa; }
-    #sunrye-custom-app .primary {
-      border-color:#1a73e8;
-      background:#1a73e8;
-      color:white;
-    }
-    #sunrye-custom-app .primary:hover { background:#1765cc; }
-    #sunrye-custom-app .stage { display:none; }
-    #sunrye-custom-app .stage.active { display:block; }
-    #sunrye-custom-app .criterion {
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      background:#eef3fd;
-      color:#174ea6;
-      font-weight:700;
-      margin:5px 0 10px;
-    }
-    #sunrye-custom-app .pool {
-      border:2px dashed #c7cbd1;
-      border-radius:14px;
-      background:#fafafa;
-      padding:14px;
-      margin:12px 0 18px;
-      min-height:120px;
-    }
-    #sunrye-custom-app .pool-title { font-weight:700; margin-bottom:8px; }
-    #sunrye-custom-app .cards {
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-    }
-    #sunrye-custom-app .card {
-      border:1px solid #d8dbe0;
-      border-radius:12px;
-      padding:12px 13px;
-      background:white;
-      cursor:grab;
-      user-select:none;
-      box-shadow:0 1px 2px rgba(0,0,0,.05);
-    }
-    #sunrye-custom-app .card:active { cursor:grabbing; }
-    #sunrye-custom-app .card.selected {
-      outline:3px solid rgba(26,115,232,.25);
-      border-color:#1a73e8;
-    }
-    #sunrye-custom-app .card-num {
-      color:#1a73e8;
-      font-size:12px;
-      font-weight:800;
-      margin-bottom:4px;
-    }
-    #sunrye-custom-app .zones {
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:12px;
-    }
-    #sunrye-custom-app .zone {
-      min-width:0;
-      border:1px solid #dadce0;
-      border-radius:14px;
-      padding:12px;
-      background:white;
-      min-height:240px;
-    }
-    #sunrye-custom-app .zone.dragover { outline:3px solid rgba(26,115,232,.2); }
-    #sunrye-custom-app .zone p {
-      color:#5f6368;
-      font-size:13px;
-      margin:0 0 7px;
-    }
-    #sunrye-custom-app .drop-area {
-      min-height:135px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      padding-top:8px;
-    }
-    #sunrye-custom-app .move-selected {
-      width:100%;
-      font-size:13px;
-    }
-    #sunrye-custom-app .result-table {
-      width:100%;
-      border-collapse:collapse;
-      margin-top:10px;
-    }
-    #sunrye-custom-app .result-table th,
-    #sunrye-custom-app .result-table td {
-      border:1px solid #dadce0;
-      padding:9px;
-      vertical-align:top;
-      text-align:left;
-    }
-    #sunrye-custom-app .result-table th { background:#f8f9fa; }
-    #sunrye-custom-app .status {
-      min-height:20px;
-      margin-top:8px;
-      font-size:13px;
-      color:#5f6368;
-    }
-    #sunrye-custom-app .hint {
-      background:#f8f9fa;
-      border-radius:12px;
-      padding:12px 14px;
-      margin:12px 0;
-      font-size:14px;
-    }
-    @media (max-width:900px){
-      #sunrye-custom-app .zones { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    }
-    @media (max-width:620px){
-      #sunrye-custom-app { padding:10px; }
-      #sunrye-custom-app .cards,
-      #sunrye-custom-app .zones,
-      #sunrye-custom-app .cat-grid { grid-template-columns:1fr; }
-    }
-  </style>
-
+<div id="app">
   <h1>『순례주택』 갈등 분류 활동</h1>
-  <p class="sub">우리 모둠이 정한 기준으로 갈등 카드를 분류하고, 분류 결과를 활동지 2번에 옮겨 적어 봅시다.</p>
+  <p class="sub">분류 기준을 정한 뒤, 먼저 비슷한 갈등끼리 묶고 나중에 공통점과 유형 이름을 붙여 봅시다.</p>
 
   <section id="stage1" class="stage active">
     <div class="panel">
-      <h2>1. 우리 모둠의 분류 기준 정하기</h2>
-      <p class="sub">활동지 1번에서 정한 내용을 입력하세요. 정해진 정답은 없습니다.</p>
-
-      <div class="field">
-        <label for="criterionInput">나의 분류 기준은</label>
-        <input id="criterionInput" placeholder="예: 갈등에서 중요하게 여기는 가치">
-      </div>
-
-      <label>분류할 유형 이름</label>
-      <div class="cat-grid">
-        <input class="cat-input" placeholder="유형 1 (예: 돈·재산)">
-        <input class="cat-input" placeholder="유형 2 (예: 체면)">
-        <input class="cat-input" placeholder="유형 3 (예: 자립)">
-        <input class="cat-input" placeholder="유형 4 (선택)">
-      </div>
-
-      <div class="hint">
-        유형은 <b>3~4개</b>를 권장합니다. 네 번째 칸이 필요 없으면 비워 두세요.
-      </div>
-
-      <div class="toolbar">
-        <button id="buildBoard" class="primary">분류판 만들기 →</button>
-      </div>
+      <h2>1. 분류 기준 정하기</h2>
+      <p class="sub">예: 누구 사이의 갈등인가? / 무엇 때문에 갈등이 생기는가? / 어떤 가치가 충돌하는가?</p>
+      <label for="criterion">우리 모둠의 분류 기준</label>
+      <input id="criterion" placeholder="예: 갈등은 무엇 때문에 생기는가?">
+      <div class="toolbar"><button id="start" class="primary">분류 시작 →</button></div>
     </div>
   </section>
 
   <section id="stage2" class="stage">
-    <h2>2. 갈등 카드 분류하기</h2>
-    <div id="criterionBadge" class="criterion"></div>
-    <p class="sub">카드를 드래그해 옮기거나, 카드를 클릭한 뒤 원하는 칸의 ‘선택한 카드 여기로 이동’을 누르세요.</p>
+    <h2>2. 비슷한 갈등끼리 묶기</h2>
+    <div id="criterionBadge" class="badge"></div>
+    <p class="sub">아직 유형 이름을 붙이지 마세요. 카드의 공통점을 생각하며 A~D 묶음으로 자유롭게 옮겨 봅시다. 2~4개 묶음을 사용해도 됩니다.</p>
 
     <div id="pool" class="pool">
-      <div class="pool-title">갈등 카드</div>
+      <div><b>갈등 카드</b></div>
       <div class="cards"></div>
     </div>
 
     <div id="zones" class="zones"></div>
 
     <div class="toolbar">
-      <button id="editCriteria">← 분류 기준 수정</button>
-      <button id="resetBoard">카드 초기화</button>
-      <button id="showResult" class="primary">분류 결과 보기 →</button>
+      <button id="back1">← 기준 수정</button>
+      <button id="resetCards">카드 초기화</button>
+      <button id="next3" class="primary">공통점 찾기 →</button>
     </div>
   </section>
 
   <section id="stage3" class="stage">
-    <h2>3. 활동지에 옮겨 적기</h2>
-    <p class="sub">아래 결과를 보며 활동지 2번의 ‘유형 이름 / 여기에 속하는 갈등 / 공통점’을 작성하세요.</p>
-
-    <div id="resultCriterion" class="criterion"></div>
-    <div id="resultWrap"></div>
-
-    <div class="panel">
-      <div class="field">
-        <label for="hardCard">우리 모둠에서 분류하기 가장 어려웠던 카드</label>
-        <input id="hardCard" placeholder="예: 카드 3">
-      </div>
-      <div class="field">
-        <label for="hardReason">왜 의견이 갈렸나요?</label>
-        <textarea id="hardReason" placeholder="카드의 어떤 부분을 서로 다르게 해석했는지 써 보세요."></textarea>
-      </div>
-    </div>
-
-    <div class="hint">
-      <b>다음 활동:</b> 여러 유형을 비교하며 『순례주택』의 갈등이 주로 언제 생겼는지 공통점을 찾아 활동지 3번의 문장을 완성하세요.
-    </div>
-
+    <h2>3. 각 묶음의 공통점 찾기</h2>
+    <p class="sub">먼저 공통점을 적고, 그다음에 묶음의 이름을 붙이세요.</p>
+    <div id="namingWrap"></div>
     <div class="toolbar">
-      <button id="backBoard">← 분류판으로</button>
+      <button id="back2">← 다시 분류하기</button>
+      <button id="resultBtn" class="primary">결과표 보기 →</button>
+    </div>
+  </section>
+
+  <section id="stage4" class="stage">
+    <h2>4. 우리 모둠의 분류 결과</h2>
+    <div id="resultCriterion" class="badge"></div>
+    <div id="resultWrap"></div>
+    <div class="hint">이 결과를 바탕으로 활동지에 <b>분류 기준 → 유형 이름 → 여기에 속하는 갈등 → 공통점</b>을 정리하세요.</div>
+    <div class="toolbar">
+      <button id="back3">← 공통점/이름 수정</button>
       <button id="allReset">처음부터 다시</button>
     </div>
   </section>
 
   <div id="status" class="status" aria-live="polite"></div>
-
-  <script>
-  (() => {
-    const root = document.getElementById('sunrye-custom-app');
-    if (!root || root.dataset.ready) return;
-    root.dataset.ready = '1';
-
-    const DATA = [
-      ["1", "수림이네 부모는 다시 좋은 아파트에서 살 수 있기를 바라며 ‘원더 그랜디움’에 미련을 두지만, 가족은 보증금도 마련하기 어려워 순례주택으로 이사해야 하는 처지가 된다."],
-      ["2", "수림이는 부모님의 행동이 부끄럽고 못마땅하지만, 어려움에 처한 가족을 외면할 수도 없어 복잡한 마음을 느낀다."],
-      ["3", "수림이는 분식집에서 일하며 자기 힘으로 돈을 벌려고 하지만, 부모는 아르바이트를 하는 것이 집안의 품위를 떨어뜨린다며 반대한다."],
-      ["4", "엄마 영지는 동네에서 청소하는 사람을 낮춰 보지만, 수림이는 사람을 직업이나 형편으로 판단하는 엄마의 태도를 부끄럽게 여긴다."],
-      ["5", "수림이네 가족은 옥탑방의 에어컨과 물건을 자기들 편의대로 사용하고, 다른 세입자들은 함께 사용하는 공간에서는 다른 사람을 배려해야 한다고 생각한다."],
-      ["6", "수림이네 가족은 쓰레기 분리배출 등 순례주택의 생활 규칙을 제대로 지키지 않고, 다른 주민들은 공동생활을 위해 각자 자신의 몫을 해야 한다고 생각한다."],
-      ["7", "할아버지가 남긴 빚 때문에 집이 망한 상황에서도 아빠는 고모들에게 계속해서 경제적 도움을 요청하지만, 고모들은 내용증명을 보내 아빠에게 더 이상 경제적 도움을 줄 수 없다는 뜻을 밝힌다."],
-      ["8", "순례 씨의 친아들은 어머니의 재산을 자신이 물려받을 것이라고 여기지만, 순례 씨는 자신의 재산을 자신의 뜻에 따라 사회에 기부하기로 결정한다."],
-      ["9", "수림이네 부모는 경제적으로 어려워진 뒤에도 이전의 생활 수준과 체면에서 쉽게 벗어나지 못하지만, 수림이는 지금의 형편을 받아들이고 자신이 할 수 있는 일을 찾으려 한다."],
-      ["10", "박사님은 대학 시간강사로 일하면서 새벽 배송과 계단 청소도 하며 생활하지만, 수림이 아빠는 집안이 어려워진 뒤에도 전임교수가 되기를 바라며 다른 일을 하려 하지 않는다."],
-      ["11", "미림은 집안 형편이 어려워진 뒤에도 비싼 그룹 과외와 사교육을 계속하려 하고, 수림이는 학원 방학 특강을 포기하고 분식집에서 아르바이트를 하며 자신의 생활비를 마련하려 한다."],
-      ["12", "엄마 영지는 이웃인 길동 아저씨가 건넨 따뜻한 비타민 음료를 거절하지만, 수림이는 이웃의 호의에 감사하며 부모의 행동에 대해 대신 사과한다."],
-      ["13", "수림이네 부모는 보증금 없이 순례주택에서 살 수 있도록 해 준 순례 씨의 도움을 당연하게 여기지만, 수림이는 자신과 가족을 도와준 순례 씨에게 감사해야 한다고 생각하며 부모의 태도를 비판한다."],
-      ["14", "엄마 영지는 학벌이나 직업을 기준으로 순례 씨와 순례주택 사람들을 자신보다 낮게 평가하지만, 순례 씨를 비롯한 이웃들은 자신의 힘으로 일하며 살아가는 것을 중요하게 여긴다."]
-    ];
-
-    const status = root.querySelector('#status');
-    let selectedCard = null;
-    let categories = [];
-
-    function showStage(n) {
-      root.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-      root.querySelector('#stage' + n).classList.add('active');
-      status.textContent = '';
-    }
-
-    function makeCard(num, text) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.draggable = true;
-      card.tabIndex = 0;
-      card.dataset.num = num;
-      card.innerHTML = `<div class="card-num">카드 ${num}</div><div>${text}</div>`;
-
-      function select() {
-        root.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        selectedCard = card;
-        status.textContent = `카드 ${num}을 선택했습니다.`;
-      }
-
-      card.addEventListener('click', select);
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          select();
-        }
-      });
-      card.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('text/plain', num);
-        e.dataTransfer.effectAllowed = 'move';
-      });
-      return card;
-    }
-
-    function fillPool() {
-      const cards = root.querySelector('#pool .cards');
-      cards.innerHTML = '';
-      DATA.forEach(([n,t]) => cards.appendChild(makeCard(n,t)));
-      selectedCard = null;
-    }
-
-    function createZone(name) {
-      const zone = document.createElement('div');
-      zone.className = 'zone';
-      zone.dataset.zone = name;
-      zone.innerHTML = `
-        <h3>${name}</h3>
-        <p>이 유형에 해당한다고 생각하는 갈등을 놓으세요.</p>
-        <button class="move-selected">선택한 카드 여기로 이동</button>
-        <div class="drop-area"></div>
-      `;
-
-      zone.addEventListener('dragover', e => {
-        e.preventDefault();
-        zone.classList.add('dragover');
-      });
-      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-      zone.addEventListener('drop', e => {
-        e.preventDefault();
-        zone.classList.remove('dragover');
-        const num = e.dataTransfer.getData('text/plain');
-        const card = root.querySelector(`.card[data-num="${num}"]`);
-        if (card) {
-          zone.querySelector('.drop-area').appendChild(card);
-          card.classList.remove('selected');
-          selectedCard = null;
-          status.textContent = `카드 ${num}을 '${name}'에 놓았습니다.`;
-        }
-      });
-
-      zone.querySelector('.move-selected').addEventListener('click', () => {
-        if (!selectedCard) {
-          status.textContent = '먼저 이동할 카드를 선택하세요.';
-          return;
-        }
-        zone.querySelector('.drop-area').appendChild(selectedCard);
-        const num = selectedCard.dataset.num;
-        selectedCard.classList.remove('selected');
-        selectedCard = null;
-        status.textContent = `카드 ${num}을 '${name}'에 놓았습니다.`;
-      });
-
-      return zone;
-    }
-
-    function buildBoard() {
-      const criterion = root.querySelector('#criterionInput').value.trim();
-      categories = [...root.querySelectorAll('.cat-input')]
-        .map(i => i.value.trim())
-        .filter(Boolean);
-
-      if (!criterion) {
-        status.textContent = '분류 기준을 먼저 입력하세요.';
-        return;
-      }
-      if (categories.length < 3) {
-        status.textContent = '유형 이름을 3개 이상 입력하세요.';
-        return;
-      }
-      if (new Set(categories).size !== categories.length) {
-        status.textContent = '유형 이름은 서로 다르게 입력하세요.';
-        return;
-      }
-
-      root.querySelector('#criterionBadge').textContent = `우리 모둠의 분류 기준: ${criterion}`;
-      const zones = root.querySelector('#zones');
-      zones.innerHTML = '';
-      categories.forEach(c => zones.appendChild(createZone(c)));
-      fillPool();
-      showStage(2);
-    }
-
-    root.querySelector('#pool').addEventListener('dragover', e => e.preventDefault());
-    root.querySelector('#pool').addEventListener('drop', e => {
-      e.preventDefault();
-      const num = e.dataTransfer.getData('text/plain');
-      const card = root.querySelector(`.card[data-num="${num}"]`);
-      if (card) {
-        root.querySelector('#pool .cards').appendChild(card);
-        card.classList.remove('selected');
-        selectedCard = null;
-        status.textContent = `카드 ${num}을 카드 모음으로 되돌렸습니다.`;
-      }
-    });
-
-    function renderResults() {
-      const unassigned = root.querySelectorAll('#pool .card').length;
-      if (unassigned > 0) {
-        status.textContent = `아직 분류하지 않은 카드가 ${unassigned}장 있습니다.`;
-        return;
-      }
-
-      const criterion = root.querySelector('#criterionInput').value.trim();
-      root.querySelector('#resultCriterion').textContent = `우리 모둠의 분류 기준: ${criterion}`;
-
-      const rows = [];
-      root.querySelectorAll('#zones .zone').forEach(zone => {
-        const nums = [...zone.querySelectorAll('.card')].map(c => `카드 ${c.dataset.num}`);
-        rows.push([zone.dataset.zone, nums.join(', ') || '없음']);
-      });
-
-      let html = '<table class="result-table"><thead><tr><th>유형 이름</th><th>여기에 속하는 갈등</th><th>공통점(활동지에 작성)</th></tr></thead><tbody>';
-      rows.forEach(([name, nums]) => {
-        html += `<tr><td><b>${name}</b></td><td>${nums}</td><td></td></tr>`;
-      });
-      html += '</tbody></table>';
-      root.querySelector('#resultWrap').innerHTML = html;
-      showStage(3);
-    }
-
-    root.querySelector('#buildBoard').addEventListener('click', buildBoard);
-    root.querySelector('#editCriteria').addEventListener('click', () => showStage(1));
-    root.querySelector('#resetBoard').addEventListener('click', () => {
-      fillPool();
-      root.querySelectorAll('#zones .drop-area').forEach(a => a.innerHTML = '');
-      status.textContent = '카드를 모두 초기화했습니다.';
-    });
-    root.querySelector('#showResult').addEventListener('click', renderResults);
-    root.querySelector('#backBoard').addEventListener('click', () => showStage(2));
-    root.querySelector('#allReset').addEventListener('click', () => {
-      root.querySelector('#criterionInput').value = '';
-      root.querySelectorAll('.cat-input').forEach(i => i.value = '');
-      root.querySelector('#hardCard').value = '';
-      root.querySelector('#hardReason').value = '';
-      root.querySelector('#zones').innerHTML = '';
-      root.querySelector('#resultWrap').innerHTML = '';
-      showStage(1);
-      status.textContent = '처음 상태로 돌아왔습니다.';
-    });
-  })();
-  </script>
 </div>
 
+<script>
+(() => {
+  const root = document.getElementById('app');
+  const status = document.getElementById('status');
+  let selectedCard = null;
+
+  const DATA = [
+    ["1","수림이네 부모는 다시 좋은 아파트에서 살 수 있기를 바라며 ‘원더 그랜디움’에 미련을 두지만, 가족은 보증금도 마련하기 어려워 순례주택으로 이사해야 하는 처지가 된다."],
+    ["2","수림이는 부모님의 행동이 부끄럽고 못마땅하지만, 어려움에 처한 가족을 외면할 수도 없어 복잡한 마음을 느낀다."],
+    ["3","수림이는 분식집에서 일하며 자기 힘으로 돈을 벌려고 하지만, 부모는 아르바이트를 하는 것이 집안의 품위를 떨어뜨린다며 반대한다."],
+    ["4","엄마 영지는 동네에서 청소하는 사람을 낮춰 보지만, 수림이는 사람을 직업이나 형편으로 판단하는 엄마의 태도를 부끄럽게 여긴다."],
+    ["5","수림이네 가족은 옥탑방의 에어컨과 물건을 자기들 편의대로 사용하고, 다른 세입자들은 함께 사용하는 공간에서는 다른 사람을 배려해야 한다고 생각한다."],
+    ["6","수림이네 가족은 쓰레기 분리배출 등 순례주택의 생활 규칙을 제대로 지키지 않고, 다른 주민들은 공동생활을 위해 각자 자신의 몫을 해야 한다고 생각한다."],
+    ["7","할아버지가 남긴 빚 때문에 집이 망한 상황에서도 아빠는 고모들에게 계속해서 경제적 도움을 요청하지만, 고모들은 내용증명을 보내 아빠에게 더 이상 경제적 도움을 줄 수 없다는 뜻을 밝힌다."],
+    ["8","순례 씨의 친아들은 어머니의 재산을 자신이 물려받을 것이라고 여기지만, 순례 씨는 자신의 재산을 자신의 뜻에 따라 사회에 기부하기로 결정한다."],
+    ["9","수림이네 부모는 경제적으로 어려워진 뒤에도 이전의 생활 수준과 체면에서 쉽게 벗어나지 못하지만, 수림이는 지금의 형편을 받아들이고 자신이 할 수 있는 일을 찾으려 한다."],
+    ["10","박사님은 대학 시간강사로 일하면서 새벽 배송과 계단 청소도 하며 생활하지만, 수림이 아빠는 집안이 어려워진 뒤에도 전임교수가 되기를 바라며 다른 일을 하려 하지 않는다."],
+    ["11","미림은 집안 형편이 어려워진 뒤에도 비싼 그룹 과외와 사교육을 계속하려 하고, 수림이는 학원 방학 특강을 포기하고 분식집에서 아르바이트를 하며 자신의 생활비를 마련하려 한다."],
+    ["12","엄마 영지는 이웃인 길동 아저씨가 건넨 따뜻한 비타민 음료를 거절하지만, 수림이는 이웃의 호의에 감사하며 부모의 행동에 대해 대신 사과한다."],
+    ["13","수림이네 부모는 보증금 없이 순례주택에서 살 수 있도록 해 준 순례 씨의 도움을 당연하게 여기지만, 수림이는 자신과 가족을 도와준 순례 씨에게 감사해야 한다고 생각하며 부모의 태도를 비판한다."],
+    ["14","엄마 영지는 학벌이나 직업을 기준으로 순례 씨와 순례주택 사람들을 자신보다 낮게 평가하지만, 순례 씨를 비롯한 이웃들은 자신의 힘으로 일하며 살아가는 것을 중요하게 여긴다."]
+  ];
+
+  function showStage(n){
+    document.querySelectorAll('.stage').forEach(s=>s.classList.remove('active'));
+    document.getElementById('stage'+n).classList.add('active');
+    status.textContent='';
+  }
+
+  function makeCard(num,text){
+    const card=document.createElement('div');
+    card.className='card'; card.draggable=true; card.tabIndex=0; card.dataset.num=num;
+    card.innerHTML=`<div class="card-num">카드 ${num}</div><div>${text}</div>`;
+    const select=()=>{
+      document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected'); selectedCard=card; status.textContent=`카드 ${num}을 선택했습니다.`;
+    };
+    card.addEventListener('click',select);
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
+    card.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',num);});
+    return card;
+  }
+
+  function fillPool(){
+    const wrap=document.querySelector('#pool .cards'); wrap.innerHTML='';
+    DATA.forEach(([n,t])=>wrap.appendChild(makeCard(n,t)));
+    selectedCard=null;
+  }
+
+  function createZone(letter){
+    const zone=document.createElement('div');
+    zone.className='zone'; zone.dataset.zone=letter;
+    zone.innerHTML=`<div class="zone-name">묶음 ${letter}</div><button class="move">선택한 카드 여기로 이동</button><div class="drop-area"></div>`;
+    zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragover');});
+    zone.addEventListener('dragleave',()=>zone.classList.remove('dragover'));
+    zone.addEventListener('drop',e=>{
+      e.preventDefault(); zone.classList.remove('dragover');
+      const num=e.dataTransfer.getData('text/plain');
+      const card=document.querySelector(`.card[data-num="${num}"]`);
+      if(card){zone.querySelector('.drop-area').appendChild(card);card.classList.remove('selected');selectedCard=null;}
+    });
+    zone.querySelector('.move').addEventListener('click',()=>{
+      if(!selectedCard){status.textContent='먼저 카드를 선택하세요.';return;}
+      zone.querySelector('.drop-area').appendChild(selectedCard);
+      selectedCard.classList.remove('selected'); selectedCard=null;
+    });
+    return zone;
+  }
+
+  function buildBoard(){
+    const criterion=document.getElementById('criterion').value.trim();
+    if(!criterion){status.textContent='분류 기준을 입력하세요.';return;}
+    document.getElementById('criterionBadge').textContent='우리 모둠의 분류 기준: '+criterion;
+    const zones=document.getElementById('zones'); zones.innerHTML='';
+    ['A','B','C','D'].forEach(x=>zones.appendChild(createZone(x)));
+    fillPool(); showStage(2);
+  }
+
+  document.getElementById('pool').addEventListener('dragover',e=>e.preventDefault());
+  document.getElementById('pool').addEventListener('drop',e=>{
+    e.preventDefault();
+    const num=e.dataTransfer.getData('text/plain');
+    const card=document.querySelector(`.card[data-num="${num}"]`);
+    if(card){document.querySelector('#pool .cards').appendChild(card);card.classList.remove('selected');selectedCard=null;}
+  });
+
+  function buildNaming(){
+    const unassigned=document.querySelectorAll('#pool .card').length;
+    if(unassigned>0){status.textContent=`아직 분류하지 않은 카드가 ${unassigned}장 있습니다.`;return;}
+    const wrap=document.getElementById('namingWrap'); wrap.innerHTML='';
+    document.querySelectorAll('#zones .zone').forEach(zone=>{
+      const cards=[...zone.querySelectorAll('.card')];
+      if(cards.length===0) return;
+      const nums=cards.map(c=>'카드 '+c.dataset.num).join(', ');
+      const box=document.createElement('div');
+      box.className='panel'; box.dataset.zone=zone.dataset.zone;
+      box.innerHTML=`<h3>묶음 ${zone.dataset.zone}</h3><p><b>포함된 갈등:</b> ${nums}</p>
+        <label>이 묶음의 공통점</label><textarea class="common-input" placeholder="이 카드들은 어떤 점이 비슷한가요?"></textarea>
+        <label style="margin-top:10px">공통점을 바탕으로 붙인 유형 이름</label><input class="name-input" placeholder="예: 체면을 중시하는 갈등">`;
+      wrap.appendChild(box);
+    });
+    showStage(3);
+  }
+
+  function renderResult(){
+    const boxes=[...document.querySelectorAll('#namingWrap .panel')];
+    for(const box of boxes){
+      if(!box.querySelector('.common-input').value.trim() || !box.querySelector('.name-input').value.trim()){
+        status.textContent='각 묶음의 공통점과 유형 이름을 모두 입력하세요.'; return;
+      }
+    }
+    document.getElementById('resultCriterion').textContent='우리 모둠의 분류 기준: '+document.getElementById('criterion').value.trim();
+    let html='<table class="result-table"><thead><tr><th>유형 이름</th><th>여기에 속하는 갈등</th><th>공통점</th></tr></thead><tbody>';
+    boxes.forEach(box=>{
+      const letter=box.dataset.zone;
+      const zone=document.querySelector(`#zones .zone[data-zone="${letter}"]`);
+      const nums=[...zone.querySelectorAll('.card')].map(c=>'카드 '+c.dataset.num).join(', ');
+      const common=box.querySelector('.common-input').value.trim();
+      const name=box.querySelector('.name-input').value.trim();
+      html+=`<tr><td><b>${name}</b></td><td>${nums}</td><td>${common}</td></tr>`;
+    });
+    html+='</tbody></table>';
+    document.getElementById('resultWrap').innerHTML=html;
+    showStage(4);
+  }
+
+  document.getElementById('start').addEventListener('click',buildBoard);
+  document.getElementById('back1').addEventListener('click',()=>showStage(1));
+  document.getElementById('resetCards').addEventListener('click',()=>{
+    fillPool(); document.querySelectorAll('#zones .drop-area').forEach(a=>a.innerHTML='');
+  });
+  document.getElementById('next3').addEventListener('click',buildNaming);
+  document.getElementById('back2').addEventListener('click',()=>showStage(2));
+  document.getElementById('resultBtn').addEventListener('click',renderResult);
+  document.getElementById('back3').addEventListener('click',()=>showStage(3));
+  document.getElementById('allReset').addEventListener('click',()=>location.reload());
+})();
+</script>
 </body>
 </html>
