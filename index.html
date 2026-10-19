@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>『순례주택』 갈등 분류 활동</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+<link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+<link href="[https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap](https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap)" rel="stylesheet">
 <style>
 :root {
   --font-main: "Noto Sans KR", Pretendard, -apple-system, sans-serif;
@@ -62,7 +62,6 @@ body {
   padding: 12px 16px 20px;
 }
 
-/* 상단 컴팩트 헤더 */
 .header-box {
   display: flex;
   align-items: center;
@@ -112,7 +111,6 @@ h1 {
   background: var(--primary-color);
 }
 
-/* 스테이지 전환 */
 .stage { display: none; }
 .stage.active { display: block; animation: fadeIn 0.2s ease-out; }
 @keyframes fadeIn {
@@ -120,7 +118,6 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 2단계 전용: 좌우 분할 보드 */
 .stage-header-bar {
   display: flex;
   justify-content: space-between;
@@ -158,7 +155,6 @@ h1 {
   min-height: 520px;
 }
 
-/* 왼쪽: 카드 보관함 */
 .pool-panel {
   background: #fff;
   border: 2px dashed #cbd5e1;
@@ -188,4 +184,521 @@ h1 {
 .pool-scroll-area {
   flex: 1;
   overflow-y: auto;
-  padding:
+  padding: 10px;
+}
+.pool-scroll-area .cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.card {
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  background: var(--card-bg);
+  cursor: grab;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: #94a3b8;
+}
+.card:active { cursor: grabbing; }
+.card.selected {
+  outline: 2.5px solid var(--primary-color);
+  border-color: transparent;
+  background-color: #f8faff;
+}
+.card-num {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--primary-color);
+  background: var(--primary-soft);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+.card-text {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #334155;
+  word-break: keep-all;
+}
+
+.zones-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  height: 100%;
+}
+.zone {
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.zone[data-zone="A"] { border-color: var(--zone-a-border); background: var(--zone-a-bg); }
+.zone[data-zone="A"] .zone-name { color: var(--zone-a-accent); }
+.zone[data-zone="B"] { border-color: var(--zone-b-border); background: var(--zone-b-bg); }
+.zone[data-zone="B"] .zone-name { color: var(--zone-b-accent); }
+.zone[data-zone="C"] { border-color: var(--zone-c-border); background: var(--zone-c-bg); }
+.zone[data-zone="C"] .zone-name { color: var(--zone-c-accent); }
+.zone[data-zone="D"] { border-color: var(--zone-d-border); background: var(--zone-d-bg); }
+.zone[data-zone="D"] .zone-name { color: var(--zone-d-accent); }
+
+.zone.dragover {
+  transform: scale(0.99);
+  outline: 3px dashed currentColor;
+}
+.zone-header {
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.7);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.zone-name {
+  font-weight: 800;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.zone button.move {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.1);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.zone button.move:hover { background: #f1f5f9; }
+
+.drop-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+button {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
+  user-select: none;
+}
+button:hover { background: #f8fafc; color: #0f172a; }
+button.primary {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+button.primary:hover { background: var(--primary-hover); }
+
+.panel {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: var(--shadow-sm);
+}
+label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #334155;
+  font-size: 14px;
+}
+input, textarea {
+  width: 100%;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #f8fafc;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: #fff;
+}
+textarea { min-height: 80px; resize: vertical; }
+
+.sub { color: var(--text-secondary); font-size: 14px; margin: 0 0 14px; }
+h2 { font-size: 18px; margin: 0 0 10px; font-weight: 800; color: #1e293b; }
+
+#namingWrap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+#namingWrap .panel {
+  margin: 0;
+  padding: 16px;
+  border-left: 5px solid var(--primary-color);
+}
+.included-cards {
+  background: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  background: #fff;
+}
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.result-table th, .result-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13.5px;
+}
+.result-table th { background: #f8fafc; font-weight: 700; }
+.result-table td b { color: var(--primary-color); }
+
+.hint {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  color: #475569;
+}
+.status {
+  min-height: 20px;
+  color: #dc2626;
+  font-weight: 700;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+@media (max-width: 900px) {
+  .workspace-split {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .pool-panel { height: 350px; }
+  .zones-grid { height: 500px; }
+  #namingWrap { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="header-box">
+    <div class="header-left">
+      <div class="app-badge">국어 갈등 탐구</div>
+      <h1>『순례주택』 갈등 분류 활동</h1>
+    </div>
+    <div class="step-indicator">
+      <div id="dot1" class="step-dot active"></div>
+      <div id="dot2" class="step-dot"></div>
+      <div id="dot3" class="step-dot"></div>
+      <div id="dot4" class="step-dot"></div>
+    </div>
+  </header>
+
+  <section id="stage1" class="stage active">
+    <div class="panel">
+      <h2>📌 1. 분류 기준 정하기</h2>
+      <p class="sub">갈등을 나눌 우리 모둠만의 관점을 정해 보세요.<br>
+      (예: 누구 사이의 갈등인가? / 무엇 때문에 갈등이 생기는가? / 어떤 가치가 충돌하는가?)</p>
+      
+      <label for="criterion">우리 모둠의 분류 기준</label>
+      <input id="criterion" placeholder="예: 갈등은 무엇 때문에 생기는가?">
+      
+      <div class="toolbar" style="margin-top: 16px;">
+        <button id="start" class="primary">분류 보드로 이동 ➔</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="stage2" class="stage">
+    <div class="stage-header-bar">
+      <div class="stage-title">
+        <span>🧩 갈등 분류하기</span>
+        <div id="criterionBadge" class="badge"></div>
+      </div>
+      <div class="toolbar">
+        <button id="back1">⬅ 기준 수정</button>
+        <button id="resetCards">🔄 카드 초기화</button>
+        <button id="next3" class="primary">공통점 찾기 ➔</button>
+      </div>
+    </div>
+
+    <div class="workspace-split">
+      <div id="pool" class="pool-panel">
+        <div class="pool-top">
+          <div class="pool-title">📦 갈등 카드 보관함</div>
+          <div class="pool-desc">오른쪽 묶음으로 드래그하거나 선택 후 이동</div>
+        </div>
+        <div class="pool-scroll-area">
+          <div class="cards"></div>
+        </div>
+      </div>
+
+      <div id="zones" class="zones-grid"></div>
+    </div>
+  </section>
+
+  <section id="stage3" class="stage">
+    <div class="stage-header-bar">
+      <div class="stage-title">✍️ 3. 각 묶음의 공통점과 이름 정하기</div>
+      <div class="toolbar">
+        <button id="back2">⬅ 카드 다시 분류</button>
+        <button id="resultBtn" class="primary">결과표 확인 ➔</button>
+      </div>
+    </div>
+    <p class="sub" style="margin: 8px 0 12px;">묶어 둔 카드를 읽고 <b>공통점</b>을 먼저 적은 뒤, 알맞은 <b>유형 이름</b>을 붙여 보세요.</p>
+    <div id="namingWrap"></div>
+  </section>
+
+  <section id="stage4" class="stage">
+    <div class="stage-header-bar">
+      <div class="stage-title">
+        <span>🎉 우리 모둠의 분류 결과</span>
+        <div id="resultCriterion" class="badge"></div>
+      </div>
+      <div class="toolbar">
+        <button id="back3">⬅ 내용 수정</button>
+        <button id="allReset">🔄 처음부터 다시</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <div id="resultWrap"></div>
+    </div>
+    <div class="hint">
+      💡 활동지에 <b>분류 기준 ➔ 유형 이름 ➔ 여기에 속하는 갈등 ➔ 공통점</b>을 정리해 발표해 봅시다!
+    </div>
+  </section>
+
+  <div id="status" class="status" aria-live="polite"></div>
+</div>
+
+<script>
+(() => {
+  const root = document.getElementById('app');
+  const status = document.getElementById('status');
+  let selectedCard = null;
+
+  const DATA = [
+    ["1","수림이네 부모는 다시 좋은 아파트에서 살 수 있기를 바라며 ‘원더 그랜디움’에 미련을 두지만, 가족은 보증금도 마련하기 어려워 순례주택으로 이사해야 하는 처지가 된다."],
+    ["2","수림이는 부모님의 행동이 부끄럽고 못마땅하지만, 어려움에 처한 가족을 외면할 수도 없어 복잡한 마음을 느낀다."],
+    ["3","수림이는 분식집에서 일하며 자기 힘으로 돈을 벌려고 하지만, 부모는 아르바이트를 하는 것이 집안의 품위를 떨어뜨린다며 반대한다."],
+    ["4","엄마 영지는 동네에서 청소하는 사람을 낮춰 보지만, 수림이는 사람을 직업이나 형편으로 판단하는 엄마의 태도를 부끄럽게 여긴다."],
+    ["5","수림이네 가족은 옥탑방의 에어컨과 물건을 자기들 편의대로 사용하고, 다른 세입자들은 함께 사용하는 공간에서는 다른 사람을 배려해야 한다고 생각한다."],
+    ["6","수림이네 가족은 쓰레기 분리배출 등 순례주택의 생활 규칙을 제대로 지키지 않고, 다른 주민들은 공동생활을 위해 각자 자신의 몫을 해야 한다고 생각한다."],
+    ["7","할아버지가 남긴 빚 때문에 집이 망한 상황에서도 아빠는 고모들에게 계속해서 경제적 도움을 요청하지만, 고모들은 내용증명을 보내 아빠에게 더 이상 경제적 도움을 줄 수 없다는 뜻을 밝힌다."],
+    ["8","순례 씨의 친아들은 어머니의 재산을 자신이 물려받을 것이라고 여기지만, 순례 씨는 자신의 재산을 자신의 뜻에 따라 사회에 기부하기로 결정한다."],
+    ["9","수림이네 부모는 경제적으로 어려워진 뒤에도 이전의 생활 수준과 체면에서 쉽게 벗어나지 못하지만, 수림이는 지금의 형편을 받아들이고 자신이 할 수 있는 일을 찾으려 한다."],
+    ["10","박사님은 대학 시간강사로 일하면서 새벽 배송과 계단 청소도 하며 생활하지만, 수림이 아빠는 집안이 어려워진 뒤에도 전임교수가 되기를 바라며 다른 일을 하려 하지 않는다."],
+    ["11","미림은 집안 형편이 어려워진 뒤에도 비싼 그룹 과외와 사교육을 계속하려 하고, 수림이는 학원 방학 특강을 포기하고 분식집에서 아르바이트를 하며 자신의 생활비를 마련하려 한다."],
+    ["12","엄마 영지는 이웃인 길동 아저씨가 건넨 따뜻한 비타민 음료를 거절하지만, 수림이는 이웃의 호의에 감사하며 부모의 행동에 대해 대신 사과한다."],
+    ["13","수림이네 부모는 보증금 없이 순례주택에서 살 수 있도록 해 준 순례 씨의 도움을 당연하게 여기지만, 수림이는 자신과 가족을 도와준 순례 씨에게 감사해야 한다고 생각하며 부모의 태도를 비판한다."],
+    ["14","엄마 영지는 학벌이나 직업을 기준으로 순례 씨와 순례주택 사람들을 자신보다 낮게 평가하지만, 순례 씨를 비롯한 이웃들은 자신의 힘으로 일하며 살아가는 것을 중요하게 여긴다."]
+  ];
+
+  function updateDots(n){
+    for(let i=1; i<=4; i++){
+      const dot = document.getElementById('dot'+i);
+      if(dot){
+        if(i === n) dot.classList.add('active');
+        else dot.classList.remove('active');
+      }
+    }
+  }
+
+  function showStage(n){
+    document.querySelectorAll('.stage').forEach(s=>s.classList.remove('active'));
+    document.getElementById('stage'+n).classList.add('active');
+    updateDots(n);
+    status.textContent='';
+  }
+
+  function makeCard(num,text){
+    const card=document.createElement('div');
+    card.className='card'; card.draggable=true; card.tabIndex=0; card.dataset.num=num;
+    card.innerHTML=`<div class="card-num">카드 ${num}</div><div class="card-text">${text}</div>`;
+    const select=()=>{
+      document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected'); selectedCard=card; status.textContent=`✨ 카드 ${num}번 선택됨. 원하는 묶음의 이동 버튼을 누르거나 드래그하세요.`;
+    };
+    card.addEventListener('click',select);
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
+    card.addEventListener('dragstart',e=>{
+      e.dataTransfer.setData('text/plain',num);
+      card.style.opacity = '0.4';
+    });
+    card.addEventListener('dragend', ()=>{ card.style.opacity = '1'; });
+    return card;
+  }
+
+  function fillPool(){
+    const wrap=document.querySelector('#pool .cards'); wrap.innerHTML='';
+    DATA.forEach(([n,t])=>wrap.appendChild(makeCard(n,t)));
+    selectedCard=null;
+  }
+
+  const zoneIcons = { 'A': '🌱', 'B': '🌿', 'C': '🍊', 'D': '🔮' };
+
+  function createZone(letter){
+    const zone=document.createElement('div');
+    zone.className='zone'; zone.dataset.zone=letter;
+    zone.innerHTML=`
+      <div class="zone-header">
+        <div class="zone-name">${zoneIcons[letter] || '📁'} 묶음 ${letter}</div>
+        <button class="move">👉 선택 이동</button>
+      </div>
+      <div class="drop-area"></div>
+    `;
+    zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragover');});
+    zone.addEventListener('dragleave',()=>zone.classList.remove('dragover'));
+    zone.addEventListener('drop',e=>{
+      e.preventDefault(); zone.classList.remove('dragover');
+      const num=e.dataTransfer.getData('text/plain');
+      const card=document.querySelector(`.card[data-num="${num}"]`);
+      if(card){zone.querySelector('.drop-area').appendChild(card);card.classList.remove('selected');selectedCard=null;}
+    });
+    zone.querySelector('.move').addEventListener('click',()=>{
+      if(!selectedCard){status.textContent='⚠️ 먼저 왼쪽에서 카드를 클릭해 주세요.';return;}
+      zone.querySelector('.drop-area').appendChild(selectedCard);
+      selectedCard.classList.remove('selected'); selectedCard=null;
+      status.textContent='';
+    });
+    return zone;
+  }
+
+  function buildBoard(){
+    const criterion=document.getElementById('criterion').value.trim();
+    if(!criterion){status.textContent='⚠️ 분류 기준을 입력해 주세요.';return;}
+    document.getElementById('criterionBadge').textContent='기준: '+criterion;
+    const zones=document.getElementById('zones'); zones.innerHTML='';
+    ['A','B','C','D'].forEach(x=>zones.appendChild(createZone(x)));
+    fillPool(); showStage(2);
+  }
+
+  document.getElementById('pool').addEventListener('dragover',e=>e.preventDefault());
+  document.getElementById('pool').addEventListener('drop',e=>{
+    e.preventDefault();
+    const num=e.dataTransfer.getData('text/plain');
+    const card=document.querySelector(`.card[data-num="${num}"]`);
+    if(card){document.querySelector('#pool .cards').appendChild(card);card.classList.remove('selected');selectedCard=null;}
+  });
+
+  function buildNaming(){
+    const wrap=document.getElementById('namingWrap'); wrap.innerHTML='';
+    const usedZones=[...document.querySelectorAll('#zones .zone')].filter(zone=>zone.querySelectorAll('.card').length>0);
+
+    if(usedZones.length<2){
+      status.textContent='⚠️ 적어도 2개 이상의 묶음에 카드를 분류해 보세요.';
+      return;
+    }
+
+    usedZones.forEach(zone=>{
+      const cards=[...zone.querySelectorAll('.card')];
+      const nums=cards.map(c=>'카드 '+c.dataset.num).join(', ');
+      const box=document.createElement('div');
+      box.className='panel'; box.dataset.zone=zone.dataset.zone;
+      box.innerHTML=`
+        <div style="font-weight:800; font-size:16px; margin-bottom:6px;">${zoneIcons[zone.dataset.zone] || '📁'} 묶음 ${zone.dataset.zone}</div>
+        <div class="included-cards"><b>포함된 카드:</b> ${nums}</div>
+        <label>🔍 이 묶음의 공통점</label>
+        <textarea class="common-input" placeholder="이 갈등들은 어떤 점이 비슷한가요?"></textarea>
+        <label style="margin-top:10px;">🏷️ 유형 이름</label>
+        <input class="name-input" placeholder="예: 체면과 현실 사이의 갈등">
+      `;
+      wrap.appendChild(box);
+    });
+
+    const unassigned=[...document.querySelectorAll('#pool .card')].map(c=>'카드 '+c.dataset.num);
+    if(unassigned.length>0){
+      const note=document.createElement('div');
+      note.className='hint';
+      note.style.gridColumn='1 / -1';
+      note.innerHTML=`💬 <b>보관함에 남은 카드:</b> ${unassigned.join(', ')} (애매한 카드는 남겨 두어도 괜찮습니다)`;
+      wrap.appendChild(note);
+    }
+
+    showStage(3);
+  }
+
+  function renderResult(){
+    const boxes=[...document.querySelectorAll('#namingWrap .panel')];
+    for(const box of boxes){
+      if(!box.querySelector('.common-input').value.trim() || !box.querySelector('.name-input').value.trim()){
+        status.textContent='⚠️ 각 묶음의 공통점과 유형 이름을 모두 입력해 주세요.'; return;
+      }
+    }
+    document.getElementById('resultCriterion').textContent='기준: '+document.getElementById('criterion').value.trim();
+    let html='<table class="result-table"><thead><tr><th style="width:25%;">유형 이름</th><th style="width:25%;">속한 갈등 카드</th><th style="width:50%;">공통점</th></tr></thead><tbody>';
+    boxes.forEach(box=>{
+      const letter=box.dataset.zone;
+      const zone=document.querySelector(`#zones .zone[data-zone="${letter}"]`);
+      const nums=[...zone.querySelectorAll('.card')].map(c=>'카드 '+c.dataset.num).join(', ');
+      const common=box.querySelector('.common-input').value.trim();
+      const name=box.querySelector('.name-input').value.trim();
+      html+=`<tr><td><b>${zoneIcons[letter] || ''} ${name}</b></td><td>${nums}</td><td>${common}</td></tr>`;
+    });
+    html+='</tbody></table>';
+    document.getElementById('resultWrap').innerHTML=html;
+    showStage(4);
+  }
+
+  document.getElementById('start').addEventListener('click',buildBoard);
+  document.getElementById('back1').addEventListener('click',()=>showStage(1));
+  document.getElementById('resetCards').addEventListener('click',()=>{
+    fillPool(); document.querySelectorAll('#zones .drop-area').forEach(a=>a.innerHTML='');
+    status.textContent='카드가 모두 보관함으로 되돌아갔습니다.';
+  });
+  document.getElementById('next3').addEventListener('click',buildNaming);
+  document.getElementById('back2').addEventListener('click',()=>showStage(2));
+  document.getElementById('resultBtn').addEventListener('click',renderResult);
+  document.getElementById('back3').addEventListener('click',()=>showStage(3));
+  document.getElementById('allReset').addEventListener('click',()=>location.reload());
+})();
+</script>
+</body>
+</html>
