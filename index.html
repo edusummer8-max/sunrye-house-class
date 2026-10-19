@@ -6,42 +6,42 @@
 <title>『순례주택』 갈등 분류 활동</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --font-main: "Noto Sans KR", Pretendard, sans-serif;
-  --font-accent: "Gaegu", cursive, sans-serif;
-  --bg-main: #f5f6fa;
-  --text-primary: #2d3436;
-  --text-secondary: #636e72;
+  --font-main: "Noto Sans KR", Pretendard, -apple-system, sans-serif;
+  --bg-main: #f6f8fb;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
   --card-bg: #ffffff;
-  --radius-lg: 20px;
-  --radius-md: 14px;
+  
+  --radius-lg: 16px;
+  --radius-md: 12px;
   --radius-sm: 8px;
-  --shadow-sm: 0 3px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 8px 18px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.04);
-  --shadow-hover: 0 12px 24px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.06);
   
-  /* 파스텔 테마 색상 */
-  --primary-color: #5c7cfa;
-  --primary-hover: #4c6ef5;
-  --primary-soft: #edf2ff;
-  
-  --zone-a-bg: #e7f5ff;
-  --zone-a-border: #74c0fc;
-  --zone-a-accent: #1971c2;
-  
-  --zone-b-bg: #ebfbee;
-  --zone-b-border: #8ce99a;
-  --zone-b-accent: #2f9e44;
-  
-  --zone-c-bg: #fff4e6;
-  --zone-c-border: #ffd43b;
-  --zone-c-accent: #f08c00;
-  
-  --zone-d-bg: #f3f0ff;
-  --zone-d-border: #d0bfff;
-  --zone-d-accent: #7950f2;
+  --shadow-sm: 0 2px 5px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-hover: 0 8px 16px rgba(0,0,0,0.08);
+
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-soft: #eef2ff;
+
+  --zone-a-bg: #f0f7ff;
+  --zone-a-border: #93c5fd;
+  --zone-a-accent: #1d4ed8;
+
+  --zone-b-bg: #f0fdf4;
+  --zone-b-border: #86efac;
+  --zone-b-accent: #15803d;
+
+  --zone-c-bg: #fffbeb;
+  --zone-c-border: #fde047;
+  --zone-c-accent: #b45309;
+
+  --zone-d-bg: #faf5ff;
+  --zone-d-border: #d8b4fe;
+  --zone-d-accent: #7e22ce;
 }
 
 * { box-sizing: border-box; }
@@ -50,702 +50,142 @@ body {
   margin: 0;
   background-color: var(--bg-main);
   background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
+  background-size: 20px 20px;
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
 #app {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 24px 20px 40px;
+  padding: 12px 16px 20px;
 }
 
-/* 헤더 영역 */
+/* 상단 컴팩트 헤더 */
 .header-box {
-  text-align: center;
-  margin-bottom: 24px;
-}
-.app-badge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
   background: #fff;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--primary-color);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid #e2e8f0;
   box-shadow: var(--shadow-sm);
-  margin-bottom: 8px;
-  border: 1px solid #e9ecef;
+  margin-bottom: 12px;
 }
-h1 {
-  font-size: 32px;
-  font-weight: 800;
-  margin: 0 0 8px;
-  color: #1e293b;
-  letter-spacing: -0.5px;
-}
-h2 {
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0 0 10px;
+.header-left {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #334155;
-}
-.sub {
-  color: var(--text-secondary);
-  font-size: 15px;
-  margin: 0 0 16px;
-}
-
-/* 진행 상태 바 */
-.step-indicator {
-  display: flex;
-  justify-content: center;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+}
+.app-badge {
+  background: var(--primary-soft);
+  color: var(--primary-color);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+h1 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+  color: #0f172a;
+}
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .step-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #cbd5e1;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 .step-dot.active {
-  width: 28px;
+  width: 22px;
   border-radius: 6px;
   background: var(--primary-color);
 }
 
-/* 패널 공통 */
-.panel {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  margin: 16px 0;
-  box-shadow: var(--shadow-sm);
-}
-
-label {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #334155;
-  font-size: 15px;
-}
-input, textarea {
-  width: 100%;
-  border: 2px solid #e2e8f0;
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
-  font-size: 15px;
-  font-family: inherit;
-  color: var(--text-primary);
-  background: #f8fafc;
-  transition: border-color 0.2s, background 0.2s;
-}
-input:focus, textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background: #fff;
-}
-textarea {
-  min-height: 95px;
-  resize: vertical;
-}
-
-/* 툴바 & 버튼 */
-.toolbar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px 0 10px;
-  align-items: center;
-}
-button {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  border: 1px solid #cbd5e1;
-  background: #ffffff;
-  color: #475569;
-  border-radius: 12px;
-  padding: 11px 18px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
-  user-select: none;
-}
-button:hover {
-  background: #f8fafc;
-  color: #1e293b;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-button:active {
-  transform: translateY(1px);
-}
-button.primary {
-  background: var(--primary-color);
-  color: #fff;
-  border-color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(92, 124, 250, 0.35);
-}
-button.primary:hover {
-  background: var(--primary-hover);
-  border-color: var(--primary-hover);
-  box-shadow: 0 6px 16px rgba(92, 124, 250, 0.45);
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: var(--primary-soft);
-  color: var(--primary-color);
-  font-weight: 700;
-  font-size: 14px;
-  margin: 4px 0 16px;
-  border: 1px solid rgba(92, 124, 250, 0.2);
-}
-
+/* 스테이지 전환 */
 .stage { display: none; }
-.stage.active {
-  display: block;
-  animation: fadeIn 0.3s ease-in-out;
-}
+.stage.active { display: block; animation: fadeIn 0.2s ease-out; }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 카드 보관함 */
-.pool {
-  border: 2px dashed #cbd5e1;
-  border-radius: var(--radius-lg);
-  padding: 18px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px);
-  margin: 16px 0 24px;
-  transition: border-color 0.2s;
-}
-.pool-title {
+/* 2단계 전용: 좌우 분할 보드 */
+.stage-header-bar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
-  font-weight: 800;
-  font-size: 16px;
-  color: #334155;
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-/* 갈등 카드 */
-.card {
+  align-items: center;
+  background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-md);
-  padding: 14px 16px;
-  background: var(--card-bg);
-  cursor: grab;
-  user-select: none;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  touch-action: manipulation;
-}
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-  border-color: #cbd5e1;
-}
-.card:active {
-  cursor: grabbing;
-}
-.card.selected {
-  outline: 3px solid rgba(92, 124, 250, 0.4);
-  border-color: var(--primary-color);
-  background-color: #f8faff;
-  transform: scale(1.01);
-}
-.card-num {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--primary-color);
-  background: var(--primary-soft);
-  padding: 2px 8px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-}
-.card-text {
-  font-size: 14.5px;
-  line-height: 1.5;
-  color: #334155;
-  word-break: keep-all;
-}
-
-/* 묶음 영역 (Zones) */
-.zones {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-.zone {
-  background: #fff;
-  border: 2px solid #e2e8f0;
-  border-radius: var(--radius-lg);
-  padding: 14px;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
-}
-
-/* 테마별 스타일 */
-.zone[data-zone="A"] { border-color: var(--zone-a-border); background: var(--zone-a-bg); }
-.zone[data-zone="A"] .zone-name { color: var(--zone-a-accent); }
-.zone[data-zone="B"] { border-color: var(--zone-b-border); background: var(--zone-b-bg); }
-.zone[data-zone="B"] .zone-name { color: var(--zone-b-accent); }
-.zone[data-zone="C"] { border-color: var(--zone-c-border); background: var(--zone-c-bg); }
-.zone[data-zone="C"] .zone-name { color: var(--zone-c-accent); }
-.zone[data-zone="D"] { border-color: var(--zone-d-border); background: var(--zone-d-bg); }
-.zone[data-zone="D"] .zone-name { color: var(--zone-d-accent); }
-
-.zone.dragover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-  outline: 3px dashed currentColor;
-}
-.zone-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding: 8px 14px;
   margin-bottom: 10px;
 }
-.zone-name {
-  font-weight: 800;
-  font-size: 17px;
+.stage-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #334155;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
-.zone button.move {
-  width: 100%;
-  padding: 8px 12px;
-  font-size: 13px;
-  border-radius: 10px;
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.08);
-  margin-bottom: 8px;
-}
-.zone button.move:hover {
-  background: #f8fafc;
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 12.5px;
 }
 
-.drop-area {
-  flex: 1;
-  min-height: 180px;
+.workspace-split {
+  display: grid;
+  grid-template-columns: 46% 54%;
+  gap: 12px;
+  height: calc(100vh - 165px);
+  min-height: 520px;
+}
+
+/* 왼쪽: 카드 보관함 */
+.pool-panel {
+  background: #fff;
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 8px 4px;
-  border-radius: var(--radius-md);
-}
-
-/* 3단계: 공통점 입력 패널 */
-#namingWrap .panel {
-  position: relative;
   overflow: hidden;
-  border-left: 6px solid var(--primary-color);
-}
-#namingWrap .panel[data-zone="A"] { border-left-color: var(--zone-a-accent); }
-#namingWrap .panel[data-zone="B"] { border-left-color: var(--zone-b-accent); }
-#namingWrap .panel[data-zone="C"] { border-left-color: var(--zone-c-accent); }
-#namingWrap .panel[data-zone="D"] { border-left-color: var(--zone-d-accent); }
-
-.naming-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.naming-header h3 {
-  margin: 0;
-  font-size: 19px;
-  font-weight: 800;
-}
-.included-cards {
-  background: #f8fafc;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  margin-bottom: 14px;
-  border: 1px solid #edf2f7;
-}
-
-/* 4단계: 결과 테이블 */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  margin-top: 10px;
 }
-.result-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: #fff;
-  overflow: hidden;
-}
-.result-table th, .result-table td {
-  padding: 14px 16px;
-  vertical-align: top;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-}
-.result-table th {
-  background: #f1f5f9;
-  font-weight: 800;
-  color: #334155;
-  font-size: 15px;
-}
-.result-table tr:last-child td {
-  border-bottom: none;
-}
-.result-table td b {
-  color: var(--primary-color);
-  font-size: 15px;
-}
-
-.hint {
+.pool-top {
+  padding: 10px 14px;
   background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--radius-md);
-  padding: 14px 18px;
-  margin: 16px 0;
-  font-size: 14.5px;
-  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.status {
-  min-height: 24px;
-  color: #e03131;
-  font-weight: 700;
-  font-size: 14px;
-  margin-top: 12px;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
 }
-
-/* 반응형 미디어 쿼리 */
-@media (max-width: 980px) {
-  .zones {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.pool-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e293b;
 }
-@media (max-width: 680px) {
-  #app { padding: 16px 12px 30px; }
-  h1 { font-size: 25px; }
-  .cards, .zones { grid-template-columns: 1fr; }
-  .toolbar { flex-direction: column; align-items: stretch; }
-  button { width: 100%; }
+.pool-desc {
+  font-size: 11.5px;
+  color: var(--text-secondary);
 }
-</style>
-</head>
-<body>
-<div id="app">
-  <div class="header-box">
-    <div class="app-badge">🏡 국어 모둠 탐구 활동</div>
-    <h1>『순례주택』 갈등 분류 활동</h1>
-    <p class="sub">분류 기준을 정한 뒤, 먼저 비슷한 갈등끼리 묶고 나중에 공통점과 유형 이름을 붙여 봅시다.</p>
-    
-    <div class="step-indicator">
-      <div id="dot1" class="step-dot active"></div>
-      <div id="dot2" class="step-dot"></div>
-      <div id="dot3" class="step-dot"></div>
-      <div id="dot4" class="step-dot"></div>
-    </div>
-  </div>
-
-  <!-- 1단계: 기준 정하기 -->
-  <section id="stage1" class="stage active">
-    <div class="panel">
-      <h2>📌 1. 분류 기준 정하기</h2>
-      <p class="sub">갈등을 바라보는 모둠만의 관점을 정해 보세요.<br>
-      (예: 누구 사이의 갈등인가? / 무엇 때문에 갈등이 생기는가? / 어떤 가치가 충돌하는가?)</p>
-      
-      <label for="criterion">우리 모둠의 분류 기준</label>
-      <input id="criterion" placeholder="예: 갈등은 무엇 때문에 생기는가?">
-      
-      <div class="toolbar">
-        <button id="start" class="primary">분류 시작하기 ➔</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2단계: 카드 묶기 -->
-  <section id="stage2" class="stage">
-    <h2>🧩 2. 비슷한 갈등끼리 묶기</h2>
-    <div id="criterionBadge" class="badge"></div>
-    <p class="sub">💡 <b>꿀팁:</b> 아직 유형 이름을 붙이지 마세요! 카드의 공통점을 생각하며 A~D 묶음으로 자유롭게 옮겨 봅시다. (애매한 카드는 보관함에 남겨 두어도 괜찮아요.)</p>
-
-    <div id="pool" class="pool">
-      <div class="pool-title">
-        <span>📦 갈등 카드 보관함</span>
-        <span style="font-size:13px; font-weight:normal; color:#64748b;">카드를 끌어다 놓거나 선택 후 이동 버튼을 누르세요</span>
-      </div>
-      <div class="cards"></div>
-    </div>
-
-    <div id="zones" class="zones"></div>
-
-    <div class="toolbar">
-      <button id="back1">⬅ 기준 다시 정하기</button>
-      <button id="resetCards">🔄 카드 처음 상태로</button>
-      <button id="next3" class="primary">공통점 찾으러 가기 ➔</button>
-    </div>
-  </section>
-
-  <!-- 3단계: 공통점 및 이름 짓기 -->
-  <section id="stage3" class="stage">
-    <h2>✍️ 3. 각 묶음의 공통점 찾기</h2>
-    <p class="sub">묶어 둔 카드들을 다시 읽어보고, <b>공통점</b>을 먼저 적은 뒤에 알맞은 <b>유형 이름</b>을 붙여 보세요.</p>
-    <div id="namingWrap"></div>
-    <div class="toolbar">
-      <button id="back2">⬅ 카드 다시 분류하기</button>
-      <button id="resultBtn" class="primary">최종 결과표 확인하기 ➔</button>
-    </div>
-  </section>
-
-  <!-- 4단계: 결과표 -->
-  <section id="stage4" class="stage">
-    <h2>🎉 4. 우리 모둠의 분류 결과</h2>
-    <div id="resultCriterion" class="badge"></div>
-    <div class="table-responsive">
-      <div id="resultWrap"></div>
-    </div>
-    <div class="hint">
-      <span>💡</span>
-      <div>이 결과를 바탕으로 활동지에 <b>분류 기준 ➔ 유형 이름 ➔ 여기에 속하는 갈등 ➔ 공통점</b>을 정리해 발표해 봅시다!</div>
-    </div>
-    <div class="toolbar">
-      <button id="back3">⬅ 공통점·이름 수정하기</button>
-      <button id="allReset">🔄 처음부터 다시 하기</button>
-    </div>
-  </section>
-
-  <div id="status" class="status" aria-live="polite"></div>
-</div>
-
-<script>
-(() => {
-  const root = document.getElementById('app');
-  const status = document.getElementById('status');
-  let selectedCard = null;
-
-  const DATA = [
-    ["1","수림이네 부모는 다시 좋은 아파트에서 살 수 있기를 바라며 ‘원더 그랜디움’에 미련을 두지만, 가족은 보증금도 마련하기 어려워 순례주택으로 이사해야 하는 처지가 된다."],
-    ["2","수림이는 부모님의 행동이 부끄럽고 못마땅하지만, 어려움에 처한 가족을 외면할 수도 없어 복잡한 마음을 느낀다."],
-    ["3","수림이는 분식집에서 일하며 자기 힘으로 돈을 벌려고 하지만, 부모는 아르바이트를 하는 것이 집안의 품위를 떨어뜨린다며 반대한다."],
-    ["4","엄마 영지는 동네에서 청소하는 사람을 낮춰 보지만, 수림이는 사람을 직업이나 형편으로 판단하는 엄마의 태도를 부끄럽게 여긴다."],
-    ["5","수림이네 가족은 옥탑방의 에어컨과 물건을 자기들 편의대로 사용하고, 다른 세입자들은 함께 사용하는 공간에서는 다른 사람을 배려해야 한다고 생각한다."],
-    ["6","수림이네 가족은 쓰레기 분리배출 등 순례주택의 생활 규칙을 제대로 지키지 않고, 다른 주민들은 공동생활을 위해 각자 자신의 몫을 해야 한다고 생각한다."],
-    ["7","할아버지가 남긴 빚 때문에 집이 망한 상황에서도 아빠는 고모들에게 계속해서 경제적 도움을 요청하지만, 고모들은 내용증명을 보내 아빠에게 더 이상 경제적 도움을 줄 수 없다는 뜻을 밝힌다."],
-    ["8","순례 씨의 친아들은 어머니의 재산을 자신이 물려받을 것이라고 여기지만, 순례 씨는 자신의 재산을 자신의 뜻에 따라 사회에 기부하기로 결정한다."],
-    ["9","수림이네 부모는 경제적으로 어려워진 뒤에도 이전의 생활 수준과 체면에서 쉽게 벗어나지 못하지만, 수림이는 지금의 형편을 받아들이고 자신이 할 수 있는 일을 찾으려 한다."],
-    ["10","박사님은 대학 시간강사로 일하면서 새벽 배송과 계단 청소도 하며 생활하지만, 수림이 아빠는 집안이 어려워진 뒤에도 전임교수가 되기를 바라며 다른 일을 하려 하지 않는다."],
-    ["11","미림은 집안 형편이 어려워진 뒤에도 비싼 그룹 과외와 사교육을 계속하려 하고, 수림이는 학원 방학 특강을 포기하고 분식집에서 아르바이트를 하며 자신의 생활비를 마련하려 한다."],
-    ["12","엄마 영지는 이웃인 길동 아저씨가 건넨 따뜻한 비타민 음료를 거절하지만, 수림이는 이웃의 호의에 감사하며 부모의 행동에 대해 대신 사과한다."],
-    ["13","수림이네 부모는 보증금 없이 순례주택에서 살 수 있도록 해 준 순례 씨의 도움을 당연하게 여기지만, 수림이는 자신과 가족을 도와준 순례 씨에게 감사해야 한다고 생각하며 부모의 태도를 비판한다."],
-    ["14","엄마 영지는 학벌이나 직업을 기준으로 순례 씨와 순례주택 사람들을 자신보다 낮게 평가하지만, 순례 씨를 비롯한 이웃들은 자신의 힘으로 일하며 살아가는 것을 중요하게 여긴다."]
-  ];
-
-  function updateDots(n){
-    for(let i=1; i<=4; i++){
-      const dot = document.getElementById('dot'+i);
-      if(dot){
-        if(i === n) dot.classList.add('active');
-        else dot.classList.remove('active');
-      }
-    }
-  }
-
-  function showStage(n){
-    document.querySelectorAll('.stage').forEach(s=>s.classList.remove('active'));
-    document.getElementById('stage'+n).classList.add('active');
-    updateDots(n);
-    status.textContent='';
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }
-
-  function makeCard(num,text){
-    const card=document.createElement('div');
-    card.className='card'; card.draggable=true; card.tabIndex=0; card.dataset.num=num;
-    card.innerHTML=`<div class="card-num">카드 ${num}</div><div class="card-text">${text}</div>`;
-    const select=()=>{
-      document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));
-      card.classList.add('selected'); selectedCard=card; status.textContent=`✨ 카드 ${num}번을 선택했습니다. 원하는 묶음으로 이동시켜 보세요.`;
-    };
-    card.addEventListener('click',select);
-    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
-    card.addEventListener('dragstart',e=>{
-      e.dataTransfer.setData('text/plain',num);
-      card.style.opacity = '0.5';
-    });
-    card.addEventListener('dragend', ()=>{
-      card.style.opacity = '1';
-    });
-    return card;
-  }
-
-  function fillPool(){
-    const wrap=document.querySelector('#pool .cards'); wrap.innerHTML='';
-    DATA.forEach(([n,t])=>wrap.appendChild(makeCard(n,t)));
-    selectedCard=null;
-  }
-
-  const zoneIcons = { 'A': '🌱', 'B': '🌿', 'C': '🍊', 'D': '🔮' };
-
-  function createZone(letter){
-    const zone=document.createElement('div');
-    zone.className='zone'; zone.dataset.zone=letter;
-    zone.innerHTML=`
-      <div class="zone-header">
-        <div class="zone-name">${zoneIcons[letter] || '📁'} 묶음 ${letter}</div>
-      </div>
-      <button class="move">👉 선택한 카드 여기로</button>
-      <div class="drop-area"></div>
-    `;
-    zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragover');});
-    zone.addEventListener('dragleave',()=>zone.classList.remove('dragover'));
-    zone.addEventListener('drop',e=>{
-      e.preventDefault(); zone.classList.remove('dragover');
-      const num=e.dataTransfer.getData('text/plain');
-      const card=document.querySelector(`.card[data-num="${num}"]`);
-      if(card){zone.querySelector('.drop-area').appendChild(card);card.classList.remove('selected');selectedCard=null;}
-    });
-    zone.querySelector('.move').addEventListener('click',()=>{
-      if(!selectedCard){status.textContent='⚠️ 먼저 이동할 카드를 클릭하여 선택해 주세요.';return;}
-      zone.querySelector('.drop-area').appendChild(selectedCard);
-      selectedCard.classList.remove('selected'); selectedCard=null;
-      status.textContent='';
-    });
-    return zone;
-  }
-
-  function buildBoard(){
-    const criterion=document.getElementById('criterion').value.trim();
-    if(!criterion){status.textContent='⚠️ 분류 기준을 입력해 주세요.';return;}
-    document.getElementById('criterionBadge').textContent='🎯 우리 모둠의 기준: '+criterion;
-    const zones=document.getElementById('zones'); zones.innerHTML='';
-    ['A','B','C','D'].forEach(x=>zones.appendChild(createZone(x)));
-    fillPool(); showStage(2);
-  }
-
-  document.getElementById('pool').addEventListener('dragover',e=>e.preventDefault());
-  document.getElementById('pool').addEventListener('drop',e=>{
-    e.preventDefault();
-    const num=e.dataTransfer.getData('text/plain');
-    const card=document.querySelector(`.card[data-num="${num}"]`);
-    if(card){document.querySelector('#pool .cards').appendChild(card);card.classList.remove('selected');selectedCard=null;}
-  });
-
-  function buildNaming(){
-    const wrap=document.getElementById('namingWrap'); wrap.innerHTML='';
-    const usedZones=[...document.querySelectorAll('#zones .zone')].filter(zone=>zone.querySelectorAll('.card').length>0);
-
-    if(usedZones.length<2){
-      status.textContent='⚠️ 적어도 2개 이상의 묶음에 카드를 분류해 보세요.';
-      return;
-    }
-
-    usedZones.forEach(zone=>{
-      const cards=[...zone.querySelectorAll('.card')];
-      const nums=cards.map(c=>'카드 '+c.dataset.num).join(', ');
-      const box=document.createElement('div');
-      box.className='panel'; box.dataset.zone=zone.dataset.zone;
-      box.innerHTML=`
-        <div class="naming-header">
-          <h3>${zoneIcons[zone.dataset.zone] || '📁'} 묶음 ${zone.dataset.zone}</h3>
-        </div>
-        <div class="included-cards"><b>포함된 갈등 카드:</b> ${nums}</div>
-        <label>🔍 이 묶음의 공통점</label>
-        <textarea class="common-input" placeholder="이 갈등 카드들은 어떤 점에서 닮았나요?"></textarea>
-        <label style="margin-top:14px">🏷️ 공통점을 바탕으로 붙인 유형 이름</label>
-        <input class="name-input" placeholder="예: 체면과 현실 사이의 갈등">
-      `;
-      wrap.appendChild(box);
-    });
-
-    const unassigned=[...document.querySelectorAll('#pool .card')].map(c=>'카드 '+c.dataset.num);
-    if(unassigned.length>0){
-      const note=document.createElement('div');
-      note.className='hint';
-      note.innerHTML=`<span>💬</span><div><b>아직 보관함에 남은 카드:</b> ${unassigned.join(', ')}<br><small style="color:#64748b">애매하거나 여러 묶음에 걸친다고 생각한 카드는 분류하지 않아도 괜찮습니다.</small></div>`;
-      wrap.appendChild(note);
-    }
-
-    showStage(3);
-  }
-
-  function renderResult(){
-    const boxes=[...document.querySelectorAll('#namingWrap .panel')];
-    for(const box of boxes){
-      if(!box.querySelector('.common-input').value.trim() || !box.querySelector('.name-input').value.trim()){
-        status.textContent='⚠️ 각 묶음의 공통점과 유형 이름을 빠짐없이 입력해 주세요.'; return;
-      }
-    }
-    document.getElementById('resultCriterion').textContent='🎯 우리 모둠의 분류 기준: '+document.getElementById('criterion').value.trim();
-    let html='<table class="result-table"><thead><tr><th style="width:25%;">유형 이름</th><th style="width:30%;">속한 갈등 카드</th><th style="width:45%;">공통점</th></tr></thead><tbody>';
-    boxes.forEach(box=>{
-      const letter=box.dataset.zone;
-      const zone=document.querySelector(`#zones .zone[data-zone="${letter}"]`);
-      const nums=[...zone.querySelectorAll('.card')].map(c=>'카드 '+c.dataset.num).join(', ');
-      const common=box.querySelector('.common-input').value.trim();
-      const name=box.querySelector('.name-input').value.trim();
-      html+=`<tr><td><b>${zoneIcons[letter] || ''} ${name}</b></td><td>${nums}</td><td>${common}</td></tr>`;
-    });
-    html+='</tbody></table>';
-    document.getElementById('resultWrap').innerHTML=html;
-    showStage(4);
-  }
-
-  document.getElementById('start').addEventListener('click',buildBoard);
-  document.getElementById('back1').addEventListener('click',()=>showStage(1));
-  document.getElementById('resetCards').addEventListener('click',()=>{
-    fillPool(); document.querySelectorAll('#zones .drop-area').forEach(a=>a.innerHTML='');
-    status.textContent='모든 카드가 보관함으로 되돌아갔습니다.';
-  });
-  document.getElementById('next3').addEventListener('click',buildNaming);
-  document.getElementById('back2').addEventListener('click',()=>showStage(2));
-  document.getElementById('resultBtn').addEventListener('click',renderResult);
-  document.getElementById('back3').addEventListener('click',()=>showStage(3));
-  document.getElementById('allReset').addEventListener('click',()=>location.reload());
-})();
-</script>
-</body>
-</html>
+.pool-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding:
